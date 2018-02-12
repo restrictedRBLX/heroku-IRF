@@ -74,7 +74,6 @@ async def Kick(From, Victim, Reason):
 async def Unmute(Member):
     for MemberRoles in Member.roles:
         await Bot.remove_roles(MemberRoles)
-    await VerifyMember(Member.server, Member.id)
 
 
     
@@ -146,19 +145,6 @@ async def clearwarns(Context):
         pass
 
 
-@Bot.command(pass_context=True)
-async def clear(Context):
-    Message = Context.message
-    Guild = Message.server
-    try:
-        Member = Guild.get_member(Message.author.id)
-        if Member and IsModerator(Guild, Member):
-            MessagesToDelete = int(Message.content[7:len(Message.content)])
-            await Bot.delete_message(Message)
-            await Bot.purge_from(Message.channel, limit=MessagesToDelete)
-    except:
-        pass
-
 
         
 @Bot.command(pass_context=True)
@@ -170,25 +156,24 @@ async def checkwarns(Context):
     await Bot.send_message(Channel, "<@" + Message.author.id + "> you have " + str(WarningsGiven) + " warnings.")
 
 
-@Bot.event
-async def on_reaction_add(reaction, Member):
-    Message = reaction.message
-    Guild = Message.server
-    Channel = Message.channel
-    Victim = Guild.get_member(Message.author.id)
-    try:
-        if IsModerator(Guild, Member):
-            if Reaction.emoji.name == "mute":
-                await Mute(Member, Victim, "Player said: " + Message.clean_content)
-                await Bot.delete_message(Message)
-            elif reaction.emoji.name == "warn":
-                await Warn(Member, Victim, "Player said: " + Message.clean_content)
-                await Bot.delete_message(Message)
-            elif Reaction.emoji.name == "kick":
-                await Kick(Member, Victim, "Player said: " + Message.clean_content)
-                await Bot.delete_message(Message)
-    except:
-        pass
+@bot.event
+async def on_reaction_add(reaction: discord.Reaction, user: discord.User):
+    server = reaction.message.server
+    author = reaction.message.author
+    Channel = discord.utils.get(server.channels, name="joint_logs")
+    if reaction.emoji.name == "warn":
+        Member = Guild.get_member(Message.author.id)
+        if Member and IsModerator(Guild, Member):
+            Victim = reacion.message.author[0]
+            Reason = Message.content[9+len(Message.raw_mentions[0]): len(Message.content)]
+            Warns.append (Victim.id)
+    if reaction.emoji.name == "kick":
+        if IsModerator == true:
+            await bot.send_message(Channel, "{} **was kicked by {}**".format(reaction.message.author.mention, user.mention))
+            await bot.kick(reaction.message.author)
+
+    else:
+        return
         
 
 print("Running")
