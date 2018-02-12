@@ -95,9 +95,9 @@ async def on_reaction_add(reaction: discord.Reaction, user: discord.User):
         if "402221315693477888" in [y.id for y in user.roles]:
             await Kick(Member, Victim, "Player said: " + Message.clean_content)
             await Bot.delete_message(Message)
-
     else:
-
+        print("no")
+        
 @Bot.command(pass_context=True)
 async def warn(Context):
     Message = Context.message
