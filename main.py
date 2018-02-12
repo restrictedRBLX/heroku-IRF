@@ -1,13 +1,11 @@
 import asyncio
 import discord
-import re
 import os
 from discord.ext import commands
 from discord.ext.commands import Bot
 
 
 Bot = commands.Bot(command_prefix = ";")
-IRF = None
 
 
 Warns = []
