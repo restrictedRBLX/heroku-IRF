@@ -76,18 +76,19 @@ async def Unmute(Member):
         await Bot.remove_roles(MemberRoles)
 
 
-  
+
+
 @Bot.event
 async def on_reaction_add(reaction: discord.Reaction, user: discord.User):
     Message = reaction.message
     Guild = Message.server
     Channel = Message.channel
     Victim = Guild.get_member(Message.author.id)
-    Member = Guild.get_member(Message.author.id)
+    Member = Guild.get_member(reaction)
     if reaction.emoji.name == "warn":
         print("xD")
         if "402221315693477888" in [y.id for y in user.roles]:
-            await Warn(Member, Victim, "Player said: " + Message.clean_content)
+            await Warn(user, Victim, "Player said: " + Message.clean_content)
             await Bot.delete_message(Message)
             Warns.append (Victim.id)
     if reaction.emoji.name == "kick":
@@ -96,9 +97,6 @@ async def on_reaction_add(reaction: discord.Reaction, user: discord.User):
             await Bot.delete_message(Message)
 
     else:
-        return
-
-
 
 @Bot.command(pass_context=True)
 async def warn(Context):
