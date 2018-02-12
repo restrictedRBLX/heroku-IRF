@@ -93,7 +93,7 @@ async def on_reaction_add(reaction: discord.Reaction, user: discord.User):
             Warns.append (Victim.id)
     if reaction.emoji.name == "kick":
         if "402221315693477888" in [y.id for y in user.roles]:
-            await Kick(Member, Victim, "Player said: " + Message.clean_content)
+            await Kick(user, Victim, "Player said: " + Message.clean_content)
             await Bot.delete_message(Message)
     else:
         print("no")
