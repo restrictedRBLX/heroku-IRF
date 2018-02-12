@@ -156,25 +156,34 @@ async def checkwarns(Context):
     await Bot.send_message(Channel, "<@" + Message.author.id + "> you have " + str(WarningsGiven) + " warnings.")
 
 
-@bot.event
+@Bot.event
 async def on_reaction_add(reaction: discord.Reaction, user: discord.User):
     server = reaction.message.server
     author = reaction.message.author
     Channel = discord.utils.get(server.channels, name="joint_logs")
     if reaction.emoji.name == "warn":
-        Member = Guild.get_member(Message.author.id)
-        if Member and IsModerator(Guild, Member):
-            Victim = reacion.message.author[0]
-            Reason = Message.content[9+len(Message.raw_mentions[0]): len(Message.content)]
-            Warns.append (Victim.id)
+        try:
+            Member = Guild.get_member(reacion.message.author.id)
+            if Member and IsModerator(Guild, Member):
+                Victim = reactions.message.author[0]
+                Reason = Message.content[9+len(author[0]): len(Message.content)]
+                await Warn(Member, Victim, Reason)
+                await Bot.delete_message(Message)
+                Warns.append (Victim.id)
+                kick = Warns.count(Victim.id)
+                if kick == 3:
+                    await Kick(Member, Victim, Reason)
+                else:
+                    print("Good egg")
+        except:
+            pass
     if reaction.emoji.name == "kick":
         if IsModerator == true:
-            await bot.send_message(Channel, "{} **was kicked by {}**".format(reaction.message.author.mention, user.mention))
-            await bot.kick(reaction.message.author)
+            await Bot.send_message(Channel, "{} **was kicked by {}**".format(reaction.message.author.mention, user.mention))
+            await Bot.kick(reaction.message.author)
 
     else:
-        return
-        
+        return    
 
 print("Running")
 Bot.run("NDEyMzgwMjAxNDQ4NzY3NDg5.DWJagg.oZPXKNKCRXDwMLqLjDSc3QcpOQE")
