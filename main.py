@@ -194,6 +194,16 @@ async def shutup2(Context):
         Talk = Words[5:len(Words)]
         await Bot.delete_message(Message)
         
+@Bot.event
+async def shutup2(Context):
+    Message = Context.message
+    Me = Message.author
+    if Me.id == "224533422654095360":
+        Words = Message.content
+        Channel = Message.channel
+        Talk = Words[5:len(Words)]
+        await Bot.delete_message(Message)
+        
 @Bot.command(pass_context=True)
 async def checkwarns(Context):
     Message = Context.message
