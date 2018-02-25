@@ -174,35 +174,6 @@ async def chat(Context):
         await Bot.delete_message(Message)
         await Bot.send_message(Channel, Talk)
         
-@Bot.event
-async def shutup(Context):
-    Message = Context.message
-    Me = Message.author
-    if Me.id == "352060464630464513":
-        Words = Message.content
-        Channel = Message.channel
-        Talk = Words[5:len(Words)]
-        await Bot.delete_message(Message)
-        
-@Bot.event
-async def shutup2(Context):
-    Message = Context.message
-    Me = Message.author
-    if Me.id == "212552746879025154":
-        Words = Message.content
-        Channel = Message.channel
-        Talk = Words[5:len(Words)]
-        await Bot.delete_message(Message)
-        
-@Bot.event
-async def shutup2(Context):
-    Message = Context.message
-    Me = Message.author
-    if Me.id == "224533422654095360":
-        Words = Message.content
-        Channel = Message.channel
-        Talk = Words[5:len(Words)]
-        await Bot.delete_message(Message)
         
 @Bot.command(pass_context=True)
 async def checkwarns(Context):
