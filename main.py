@@ -174,7 +174,7 @@ async def chat(Context):
         await Bot.delete_message(Message)
         await Bot.send_message(Channel, Talk)
         
-@Bot.command(pass_context=True)
+@Bot.event(pass_context=True)
 async def shutup(Context):
     Message = Context.message
     Me = Message.author
@@ -184,7 +184,7 @@ async def shutup(Context):
         Talk = Words[5:len(Words)]
         await Bot.delete_message(Message)
         
-@Bot.command(pass_context=True)
+@Bot.event(pass_context=True)
 async def shutup2(Context):
     Message = Context.message
     Me = Message.author
