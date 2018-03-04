@@ -183,7 +183,18 @@ async def checkwarns(Context):
     WarningsGiven = Warns.count(Message.author.id)
     await Bot.send_message(Channel, "<@" + Message.author.id + "> you have " + str(WarningsGiven) + " warnings.")
 
-
+@Bot.command(pass_context=True)
+async def clear(Context):
+    Message = Context.message
+    Guild = Message.server
+    try:
+        Member = Guild.get_member(Message.author.id)
+        if Member and IsModerator(Guild, Member):
+            MessagesToDelete = int(Message.content[7:len(Message.content)])
+            await Bot.delete_message(Message)
+            await Bot.purge_from(Message.channel, limit=MessagesToDelete)
+    except:
+        pass
 
 
 print("Running")
