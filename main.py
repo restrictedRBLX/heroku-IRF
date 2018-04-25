@@ -184,16 +184,13 @@ async def checkwarns(Context):
     WarningsGiven = Warns.count(Victim.id)
     UserWarningGiven = Warns.count(Message.author.id)
     print("0")
-    try:
-        if Member and IsModerator(Guild,Member):
-            print("1")
-            await Bot.send_message(Channel, "<@" + Message.author.id + "> they have " + str(WarningsGiven) + " warning(s).")
-        else:
-            print("2")
-            await Bot.send_message(Channel, "<@" + Message.author.id + "> you have " + str(UserWarningGiven) + " warning(s).")
-
-    except:
-        pass
+    if Member and IsModerator(Guild,Member):
+        print("1")
+        await Bot.send_message(Channel, "<@" + Message.author.id + "> they have " + str(WarningsGiven) + " warning(s).")
+    else:
+        print("2")
+        await Bot.send_message(Channel, "<@" + Message.author.id + "> you have " + str(UserWarningGiven) + " warning(s).")
+            
 
 @Bot.command(pass_context=True)
 async def clear(Context):
