@@ -183,7 +183,7 @@ async def checkwarns(Context):
     Channel = Message.channel
     WarningsGiven = Warns.count(Victim.id)
     UserWarningGiven = Warns.count(Message.author.id)
-    Member = Guild.get_member(Message.Author.id)
+    Member = Guild.get_member(Message.author.id)
     if Member and IsModerator(Guild,Member):
         await Bot.send_message(Channel, "<@" + Message.author.id + "> they have " + str(WarningsGiven) + " warning(s).")
         
