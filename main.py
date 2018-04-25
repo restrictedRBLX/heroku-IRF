@@ -182,7 +182,7 @@ async def checkwarns(Context):
     Victim = Message.mentions[0]
     Channel = Message.channel
     WarningsGiven = Warns.count(Victim.id)
-    await Bot.send_message(Channel, "<@" + Message.author.id + "> they have " + str(WarningsGiven) + " warnings.")
+    await Bot.send_message(Channel, "<@" + Message.author.id + "> they have " + str(WarningsGiven) + " warning(s).")
 
 @Bot.command(pass_context=True)
 async def clear(Context):
