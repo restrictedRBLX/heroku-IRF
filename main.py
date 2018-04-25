@@ -164,16 +164,12 @@ async def clearwarns(Context):
         pass
 
 @Bot.command(pass_context=True)
-async def chat(Context):
-    Message = Context.message
-    Me = Message.author
-    if Me.id == "224533422654095360":
-        Words = Message.content
-        Channel = Message.channel
-        Talk = Words[5:len(Words)]
-        await Bot.delete_message(Message)
-        await Bot.send_message(Channel, Talk)
-        
+async def chat(ctx, *, message : str):
+    if ctx.message.author.id == "224533422654095360":
+        await Bot.delete_message(ctx.message)
+        await Bot.say(message)
+    else:
+        return  
         
 @Bot.command(pass_context=True)
 async def checkwarns(Context):
