@@ -199,6 +199,4 @@ async def clear(Context):
 
 
 print("Running")
-if not os.environ.get('TOKEN'):
-    print("no token found!")
-Bot.run(os.environ.get('TOKEN').strip('"'))
+Bot.run("NDEyMzgwMjAxNDQ4NzY3NDg5.DWJagg.oZPXKNKCRXDwMLqLjDSc3QcpOQE")
