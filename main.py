@@ -160,7 +160,7 @@ async def citate(Context):
         Citations.append (Victim.id)
         suspend = Citations.count(Victim.id)
         if suspend == 3:
-            await suspend(Member, Victim, Reason)
+            await Suspend(Member, Victim, Reason)
         else:
             print("Good admissions bleh")
 
