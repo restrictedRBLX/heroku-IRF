@@ -173,7 +173,7 @@ async def suspend(Context):
     if Member and IsAdmissions(Guild, Member):
         Victim = Message.mentions[0]
         Reason = Message.content[9+len(Message.raw_mentions[0]): len(Message.content)]
-        await suspend(Member, Victim, Reason)
+        await Suspend(Member, Victim, Reason)
         await Bot.delete_message(Message)
 
         
