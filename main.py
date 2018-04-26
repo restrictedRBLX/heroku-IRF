@@ -53,7 +53,7 @@ def LogMessage(Moderator, Victim, Action, Reason):
     Embed.add_field(name="Punishment", value = Action, inline=False)
     return Embed
 
-def AdmissiosnLog(Moderator, Victim, Action, Reason):
+def AdmissionsLog(Moderator, Victim, Action, Reason):
     Title = Action + " by " + Moderator
     Description = Action + " for\n``` - " + Reason + "```"
     Embed = discord.Embed(title=Title, description=Description, type="rich", color = 0xFF0000)
