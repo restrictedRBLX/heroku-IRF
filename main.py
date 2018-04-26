@@ -63,7 +63,7 @@ def AdmissionsLog(Moderator, Victim, Action, Reason):
     return Embed
 
 async def Citate(From, Victim, Reason):
-    Embeded = AdmissionsLog(From.name, Victim.name, "Citate", Reason)
+    Embeded = AdmissionsLog(From.name, Victim.name, "Citation", Reason)
     await DM(Victim, Embeded, True)
     await Bot.send_message(GetChannel(Victim.server,"citation_logs"), embed=Embeded)
     print (Citations)
@@ -169,15 +169,12 @@ async def citate(Context):
 async def suspend(Context):
     Message = Context.message
     Guild = Message.server
-    try:
-        Member = Guild.get_member(Message.author.id)
-        if Member and IsAdmissions(Guild, Member):
-            Victim = Message.mentions[0]
-            Reason = Message.content[9+len(Message.raw_mentions[0]): len(Message.content)]
-            await suspend(Member, Victim, Reason)
-            await Bot.delete_message(Message)
-    except:
-        pass
+    Member = Guild.get_member(Message.author.id)
+    if Member and IsAdmissions(Guild, Member):
+        Victim = Message.mentions[0]
+        Reason = Message.content[9+len(Message.raw_mentions[0]): len(Message.content)]
+        await suspend(Member, Victim, Reason)
+        await Bot.delete_message(Message)
 
         
 @Bot.command(pass_context=True)
