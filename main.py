@@ -62,7 +62,7 @@ def AdmissionsLog(Moderator, Victim, Action, Reason):
     Embed.add_field(name="Punishment", value = Action, inline=False)
     return Embed
 
-async def Citate(From,Victim, Reason):
+async def Citate(From, Victim, Reason):
     Embeded = AdmissionsLog(From.name, "Citate", Reason)
     await DM(Victim, Embeded, True)
     await Bot.send_message(GetChannel(Victim.server,"citation_logs"), embed=Embeded)
