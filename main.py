@@ -62,7 +62,7 @@ def AdmissionsLog(Moderator, Victim, Action, Reason):
     Embed.add_field(name="Punishment", value = Action, inline=False)
     return Embed
 
-async def citate(From,Victim, Reason):
+async def Citate(From,Victim, Reason):
     Embeded = AdmissionsLog(From.name, "Citation", Reason)
     await DM(Victim, Embeded, True)
     await Bot.send_message(GetChannel(Victim.server,"citation_logs"), embed=Embeded)
@@ -154,7 +154,7 @@ async def citate(Context):
     if Member and IsAdmissions(Guild, Member):
         Victim = Message.mentions[0]
         Reason = Message.content[9+len(Message.raw_mentions[0]): len(Message.content)]
-        await citate(Member, Victim, Reason)
+        await Citate(Member, Victim, Reason)
         await Bot.delete_message(Message)
         Citations.append (Victim.id)
         suspend = Citations.count(Victim.id)
