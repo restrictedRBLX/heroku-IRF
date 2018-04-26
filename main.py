@@ -9,6 +9,8 @@ Bot = commands.Bot(command_prefix = ";")
 
 
 Warns = []
+Citations = []
+
 
 def GetRole(Guild, Name):
     Role = discord.utils.get(Guild.roles, name=Name)
@@ -21,6 +23,13 @@ def IsModerator(Guild, Member):
     for HasRoles in Member.roles:
         if Role == HasRoles:
             return True
+
+def IsAdmissions
+    Role = GetRole(Guild, "Admissions Mod")
+    for HasRoles in Member.roles:
+        if Role == HasRoles:
+            return True
+
 
 async def DM(Member, Text, Embed):
     try:
@@ -44,6 +53,24 @@ def LogMessage(Moderator, Victim, Action, Reason):
     Embed.add_field(name="Punishment", value = Action, inline=False)
     return Embed
 
+def AdmissionsLog(Moderator, Victim, Action, Reason):
+    Title = Action + " by " + Moderator
+    Description = Action + " for\n``` - " + Reason + "```"
+    Embed = discord.Embed(title=Title, description=Description, type="rich", color = 0xFF0000)
+    Embed.add_field(name="Mod", value = Moderator, inline=False)
+    Embed.add_field(name="User", value = Victim, inline=False)
+    Embed.add_field(name="Punishment", value = Action, inline=False)
+    return Embed
+
+async def citate(From,Victim, Reason):
+    Embeded = AdmissionsLog(From.name, "Citation", Reason)
+    await DM(Victim,Embeded,True)
+    await Bot.send_message(GetChannel(Victim.server,"citation_logs"), embed=Embeded)
+
+async def suspend(From,Victim,Reason):
+    Embeded = AdmissionsLog(From.name, "Suspsension", Reason)
+    await DM(Victim,Embeded,True)
+    await Bot.send_message(GetChannel(Victim.server,"suspend_logs"), embed=Embeded)
 
 async def Mute(From, Victim, Reason):
     for VictimRoles in Victim.roles:
@@ -117,6 +144,43 @@ async def warn(Context):
                 print("Good egg")
     except:
         pass
+
+
+@Bot.command(pass_context=True)
+async def citate(Context):
+    Message = Context.message
+    Guild = Message.server
+    try:
+        Member = Guild.get_member(Message.author.id)
+        if Member and IsAdmissions(Guild, Member):
+            Victim = Message.mentions[0]
+            Reason = Message.content[9+len(Message.raw_mentions[0]): len(Message.content)]
+            await citate(Member, Victim, Reason)
+            await Bot.delete_message(Message)
+            Citations.append (Victim.id)
+            suspend = Citations.count(Victim.id)
+            if suspend == 3:
+                await suspend(Member, Victim, Reason)
+            else:
+                print("Good admissions bleh")
+    except:
+        pass
+
+
+@Bot.command(pass_context=True)
+async def suspend(Context):
+    Message = Context.message
+    Guild = Message.server
+    try:
+        Member = Guild.get_member(Message.author.id)
+        if Member and IsAdmissions(Guild, Member):
+            Victim = Message.mentions[0]
+            Reason = Message.content[9+len(Message.raw_mentions[0]): len(Message.content)]
+            await suspend(Member, Victim, Reason)
+            await Bot.delete_message(Message)
+    except:
+        pass
+
         
 @Bot.command(pass_context=True)
 async def mute(Context):
@@ -188,6 +252,25 @@ async def checkwarns(Context):
             await Bot.send_message(Channel, "<@" + Message.author.id + "> you have " + str(UserWarningGiven) + " warning(s).")
     except:
         pass
+
+@Bot.command(pass_context=True)
+async def citationcount(Context):
+    Message = Context.message
+    Guild = Message.server
+    Victim = Message.mentions[0]
+    Channel = Message.channel
+    CitationsGiven = Citations.count(Victim.id)
+    UserCitationsGiven = Citations.count(Message.author.id)
+    try:
+        Member = Guild.get_member(Message.author.id)
+        if Member and IsAdmissions(Guild,Member):
+            await Bot.send_message(Channel, "<@" + Message.author.id + "> they have " + str(CitationsGiven) + " citation(s).")
+        
+        else:
+            await Bot.send_message(Channel, "<@" + Message.author.id + "> you have " + str(UserCitationsGiven) + " citation(s).")
+    except:
+        pass
+
 
 @Bot.command(pass_context=True)
 async def clear(Context):
