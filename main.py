@@ -63,10 +63,10 @@ def AdmissionsLog(Moderator, Victim, Action, Reason):
     return Embed
 
 async def Citate(From, Victim, Reason):
-    Embeded = AdmissionsLog(From.name, "Citate", Reason)
+    Embeded = AdmissionsLog(From.name, Victim.name, "Citate", Reason)
     await DM(Victim, Embeded, True)
     await Bot.send_message(GetChannel(Victim.server,"citation_logs"), embed=Embeded)
-    primt (Citations)
+    print (Citations)
 
 async def suspend(From,Victim,Reason):
     Embeded = AdmissionsLog(From.name, "Suspension", Reason)
