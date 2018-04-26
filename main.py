@@ -64,7 +64,7 @@ def AdmissionsLog(Moderator, Victim, Action, Reason):
 
 async def citate(From,Victim, Reason):
     Embeded = AdmissionsLog(From.name, "Citation", Reason)
-    await DM(Victim,Embeded,True)
+    await DM(Victim, Embeded, True)
     await Bot.send_message(GetChannel(Victim.server,"citation_logs"), embed=Embeded)
 
 async def suspend(From,Victim,Reason):
@@ -150,21 +150,18 @@ async def warn(Context):
 async def citate(Context):
     Message = Context.message
     Guild = Message.server
-    try:
-        Member = Guild.get_member(Message.author.id)
-        if Member and IsAdmissions(Guild, Member):
-            Victim = Message.mentions[0]
-            Reason = Message.content[9+len(Message.raw_mentions[0]): len(Message.content)]
-            await citate(Member, Victim, Reason)
-            await Bot.delete_message(Message)
-            Citations.append (Victim.id)
-            suspend = Citations.count(Victim.id)
-            if suspend == 3:
-                await suspend(Member, Victim, Reason)
-            else:
-                print("Good admissions bleh")
-    except:
-        pass
+    Member = Guild.get_member(Message.author.id)
+    if Member and IsAdmissions(Guild, Member):
+        Victim = Message.mentions[0]
+        Reason = Message.content[9+len(Message.raw_mentions[0]): len(Message.content)]
+        await citate(Member, Victim, Reason)
+        await Bot.delete_message(Message)
+        Citations.append (Victim.id)
+        suspend = Citations.count(Victim.id)
+        if suspend == 3:
+            await suspend(Member, Victim, Reason)
+        else:
+            print("Good admissions bleh")
 
 
 @Bot.command(pass_context=True)
