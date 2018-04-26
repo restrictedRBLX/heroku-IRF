@@ -231,9 +231,9 @@ async def clearcitations(Context):
     Guild = Message.server
     try:
         Member = Guild.get_member(Message.author.id)
-        if Member and IsModerator(Guild, Member):
+        if Member and IsAdmissions(Guild, Member):
             Victim = Message.mentions[0]
-            for Occurence in Warns:
+            for Occurence in Citations:
                 if Occurence == Victim.id:
                     Citations.remove(Victim.id)
             await Bot.send_message(Message.channel, "Citations cleared for " + Victim.name)
