@@ -148,7 +148,7 @@ async def warn(Context):
 
 
 @Bot.command(pass_context=True)
-async def warn(Context):
+async def citate(Context):
     Message = Context.message
     Guild = Message.server
     try:
