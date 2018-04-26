@@ -55,8 +55,8 @@ def LogMessage(Moderator, Victim, Action, Reason):
 
 def AdmissionsLog(Moderator, Victim, Action, Reason):
     Title = Action + " by " + Moderator
-    Description = Action + " for\n``` - " + Reason + "```"
-    Embed = discord.Embed(title=Title, description=Description, type="rich", color = 0xFF0000)
+    Description = Action + " for\n```" + Reason + "```"
+    Embed = discord.Embed(title=Title, description=Description, type="rich", color = #4C4CFF)
     Embed.add_field(name="Mod", value = Moderator, inline=False)
     Embed.add_field(name="User", value = Victim, inline=False)
     Embed.add_field(name="Punishment", value = Action, inline=False)
