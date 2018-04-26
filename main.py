@@ -24,7 +24,7 @@ def IsModerator(Guild, Member):
         if Role == HasRoles:
             return True
 
-def IsAdmissions(Guild, Name):
+def IsAdmissions(Guild, Member):
     Role = GetRole(Guild, "Admissions Mod")
     for HasRoles in Member.roles:
         if Role == HasRoles:
