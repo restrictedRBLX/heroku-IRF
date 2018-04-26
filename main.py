@@ -148,20 +148,24 @@ async def warn(Context):
 
 
 @Bot.command(pass_context=True)
-async def citate(Context, Victim : discord.Member, *, Reason: str):
+async def warn(Context):
     Message = Context.message
     Guild = Message.server
-    Member = Guild.get_member(Message.author.id)
-    if Member and IsAdmissions(Guild, Member):
-        await Citate(Member, Victim, Reason)
-        await Bot.delete_message(Message)
-        Citations.append (Victim.id)
-        suspend = Citations.count(Victim.id)
-        if suspend == 3:
-            await suspend(Member, Victim, Reason)
-        else:
-            print("Good admissions bleh")
-
+    try:
+        Member = Guild.get_member(Message.author.id)
+        if Member and IsModerator(Guild, Member):
+            Victim = Message.mentions[0]
+            Reason = Message.content[9+len(Message.raw_mentions[0]): len(Message.content)]
+            await Citate(Member, Victim, Reason)
+            await Bot.delete_message(Message)
+            Citations.append (Victim.id)
+            kick = Citations.count(Victim.id)
+            if suspend == 3:
+                await Suspend(Member, Victim, Reason)
+            else:
+                print("Good admissions bleh")
+    except:
+        pass
 
 @Bot.command(pass_context=True)
 async def suspend(Context):
