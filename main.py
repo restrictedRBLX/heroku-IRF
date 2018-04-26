@@ -223,6 +223,22 @@ async def clearwarns(Context):
             await Bot.send_message(Message.channel, "Warnings cleared for " + Victim.name)
     except:
         pass
+    
+    
+@Bot.command(pass_context=True)
+async def clearcitations(Context):
+    Message = Context.message
+    Guild = Message.server
+    try:
+        Member = Guild.get_member(Message.author.id)
+        if Member and IsModerator(Guild, Member):
+            Victim = Message.mentions[0]
+            for Occurence in Warns:
+                if Occurence == Victim.id:
+                    Citations.remove(Victim.id)
+            await Bot.send_message(Message.channel, "Citations cleared for " + Victim.name)
+    except:
+        pass
 
 @Bot.command(pass_context=True)
 async def chat(ctx, *, message : str):
