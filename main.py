@@ -270,13 +270,13 @@ async def checkwarns(Context):
 async def citationcount(Context):
     Message = Context.message
     Guild = Message.server
-    Victim = Message.mentions[0]
     Channel = Message.channel
-    CitationsGiven = Citations.count(Victim.id)
     UserCitationsGiven = Citations.count(Message.author.id)
     try:
         Member = Guild.get_member(Message.author.id)
         if Member and IsAdmissions(Guild,Member):
+            Victim = Message.mentions[0]
+            CitationsGiven = Citations.count(Victim.id)
             await Bot.send_message(Channel, "<@" + Message.author.id + "> they have " + str(CitationsGiven) + " citation(s).")
         
         else:
