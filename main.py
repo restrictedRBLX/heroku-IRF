@@ -252,13 +252,13 @@ async def chat(ctx, *, message : str):
 async def checkwarns(Context):
     Message = Context.message
     Guild = Message.server
-    Victim = Message.mentions[0]
     Channel = Message.channel
-    WarningsGiven = Warns.count(Victim.id)
     UserWarningGiven = Warns.count(Message.author.id)
     try:
         Member = Guild.get_member(Message.author.id)
         if Member and IsModerator(Guild,Member):
+            Victim = Message.mentions[0]
+            WarningsGiven = Warns.count(Victim.id)
             await Bot.send_message(Channel, "<@" + Message.author.id + "> they have " + str(WarningsGiven) + " warning(s).")
         
         else:
