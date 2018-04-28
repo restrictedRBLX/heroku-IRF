@@ -153,7 +153,7 @@ async def citate(Context):
     Guild = Message.server
     try:
         Member = Guild.get_member(Message.author.id)
-        if Member and IsModerator(Guild, Member):
+        if Member and IsAdmissions(Guild, Member):
             Victim = Message.mentions[0]
             Reason = Message.content[9+len(Message.raw_mentions[0]): len(Message.content)]
             await Citate(Member, Victim, Reason)
