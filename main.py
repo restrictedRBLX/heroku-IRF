@@ -161,6 +161,7 @@ async def citate(Context):
             Citations.append (Victim.id)
             suspend = Citations.count(Victim.id)
             if suspend == 3:
+                Reason = (Reason," - This user was auto suspended for reaching 3 citations.")
                 await Suspend(Member, Victim, Reason)
             else:
                 print("Good admissions bleh")
