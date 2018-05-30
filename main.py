@@ -161,7 +161,7 @@ async def citate(Context):
             Citations.append (Victim.id)
             kick = Citations.count(Victim.id)
             if suspend == 3:
-                await Suspend(Member, Victim, Reason)
+                print("naughty")
             else:
                 print("Good admissions bleh")
     except:
