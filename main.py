@@ -159,9 +159,9 @@ async def citate(Context):
             await Citate(Member, Victim, Reason)
             await Bot.delete_message(Message)
             Citations.append (Victim.id)
-            kick = Citations.count(Victim.id)
+            suspend = Citations.count(Victim.id)
             if suspend == 3:
-                await Suspend(Member,Victim,Reason)
+                await Suspend(Member, Victim, Reason)
             else:
                 print("Good admissions bleh")
     except:
