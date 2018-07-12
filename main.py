@@ -24,12 +24,6 @@ def IsModerator(Guild, Member):
         if Role == HasRoles:
             return True
 
-def IsAdmissions(Guild, Member):
-    Role = GetRole(Guild, "Admissions Mod")
-    for HasRoles in Member.roles:
-        if Role == HasRoles:
-            return True
-
 
 async def DM(Member, Text, Embed):
     try:
@@ -53,25 +47,7 @@ def LogMessage(Moderator, Victim, Action, Reason):
     Embed.add_field(name="Punishment", value = Action, inline=False)
     return Embed
 
-def AdmissionsLog(Moderator, Victim, Action, Reason):
-    Title = Action + " by " + Moderator
-    Description = Action + " for\n``` - " + Reason + "```"
-    Embed = discord.Embed(title=Title, description=Description, type="rich", color = 0xFF0000)
-    Embed.add_field(name="Mod", value = Moderator, inline=False)
-    Embed.add_field(name="User", value = Victim, inline=False)
-    Embed.add_field(name="Punishment", value = Action, inline=False)
-    return Embed
 
-async def Citate(From, Victim, Reason):
-    Embeded = AdmissionsLog(From.name, Victim.name, "Citation", Reason)
-    await DM(Victim, Embeded, True)
-    await Bot.send_message(GetChannel(Victim.server,"citation_logs"), embed=Embeded)
-    print (Citations)
-
-async def Suspend(From,Victim,Reason):
-    Embeded = AdmissionsLog(From.name, Victim.name, "Suspension", Reason)
-    await DM(Victim,Embeded,True)
-    await Bot.send_message(GetChannel(Victim.server,"suspend_logs"), embed=Embeded)
 
 async def Mute(From, Victim, Reason):
     for VictimRoles in Victim.roles:
