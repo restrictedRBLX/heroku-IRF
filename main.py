@@ -91,12 +91,12 @@ async def on_reaction_add(reaction: discord.Reaction, user: discord.User):
     Member = Guild.get_member(reaction)
     if reaction.emoji.name == "warn":
         print("xD")
-        if "402221315693477888" in [y.id for y in user.roles]:
+        if Member and IsModerator(Guild, Member):
             await Warn(user, Victim, "Player said: " + Message.clean_content)
             await Bot.delete_message(Message)
             Warns.append (Victim.id)
     if reaction.emoji.name == "kick":
-        if "402221315693477888" in [y.id for y in user.roles]:
+        if Member and IsModerator(Guild, Member):
             await Kick(user, Victim, "Player said: " + Message.clean_content)
             await Bot.delete_message(Message)
     else:
